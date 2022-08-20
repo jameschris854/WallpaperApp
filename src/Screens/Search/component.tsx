@@ -13,6 +13,8 @@ import SearchIllSvg from "../../Assets/Svg/SearchIllSvg";
 import ImageCardWrapper from "../../components/ImageCardWrapper";
 import colors from "../../constants/colors";
 import useHeaderAndFooterScrollAnimation from "../../hooks/useHeaderAndFooterScrollAnimation";
+import BaseImageList from "../../components/BaseImageList";
+import Page from "../../constants/model/Page";
 const {height,width} = useDimensions('window')
 const HEADER_HEIGHT = 116
 
@@ -41,14 +43,6 @@ const Component = () => {
 
     },[])
 
-    const _renderItem = ({item,index}) => {
-        return  <Animatable.View key={index} iterationDelay={125*index} animation={"fadeInUp"} duration={250} useNativeDriver easing={"ease-in-out"}  style={{maxHeight:height/3,width:'47.5%',marginLeft:index%2 !== 0 ? 'auto': '0%',marginTop:'4%',backgroundColor:Colors.cardBg,borderRadius:15,overflow:'hidden'}}>
-                    <ImageCardWrapper item={item}>
-                        <Image source={{uri:item.urls.full}} style={{width:'100%',height:'100%'}} resizeMode={"cover"} />
-                    </ImageCardWrapper>
-                </Animatable.View>
-    }
-   
     const handleSearchTextChange = async (e) => {
         dispatch(setSearchText(e))
     }
@@ -60,6 +54,25 @@ const Component = () => {
 
     const memonizedTextChangeHandler = useCallback(debounce(getSearchedData,500), []);
 
+    const handlePageEndReached = async (e:Event,page:Page) => {
+        if(page.totalPages && page.page >= page.totalPages) return
+        try{
+            page.setPage(page.page+1)
+            const res = await Sync.getSearchRes(Search.searchText,page.page)
+            page.setTotalPages(Search.totalPages)
+            page.setTotalRecords(Search.totalRecords)
+
+            dispatch(setSearchResults({
+                results:[...Search.searchResults,...res.results],
+                total:res.total,
+                total_pages:res.total_pages
+            }))
+        }catch(e){
+            console.log('homne api wallL: ', e)
+        }
+
+    }
+
     return(
         <>
         <View style={{paddingHorizontal:16,height:'100%'}}>
@@ -67,7 +80,7 @@ const Component = () => {
                 {Search.searchText != "" && <Text style={{fontSize:18,paddingTop:16,width:'100%'}}>Search Results for <Text style={{fontWeight:'bold',fontSize:24,fontStyle:'italic'}}>"{Search.searchText}"</Text></Text>}
                 <TextInput value={Search.searchText} placeholderTextColor={Colors.darkText} placeholder='Search any "Wallpapers"' onChangeText={(e) => {handleSearchTextChange(e),memonizedTextChangeHandler(e)}} style={{height:50,backgroundColor:Colors.backgroundColorLight,borderRadius:4,fontSize:18,marginTop:16,width:'100%',paddingHorizontal:16}} />
             </Animated.View>
-            {Search.searchResults.length ?
+            {/* {Search.searchResults.length ?
                 <Animated.FlatList
                     showsVerticalScrollIndicator={false}
                     data={Search.searchResults}
@@ -89,7 +102,13 @@ const Component = () => {
                         </Animated.View>
                     </Animated.View>
                 </View>
-            }
+            } */}
+            <BaseImageList
+            data={Search.searchResults}
+            handleScroll={handleScroll}
+            pageHeaderHeight={HEADER_HEIGHT}
+            handlePageEndReached={handlePageEndReached}
+            />
         </View>
         </>
     )

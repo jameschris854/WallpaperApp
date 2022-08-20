@@ -8,13 +8,13 @@ const httpGet = async (url: RequestInfo) => {
 
 class Sync {
 
-    static getWallPapers = () => {
-        return httpGet(`https://api.unsplash.com/search/photos?query=wallpapers&client_id=${config.unSplashAccessKey}`)
+    static getWallPapers = (page=1) => {
+        return httpGet(`https://api.unsplash.com/search/photos?query=wallpapers&client_id=${config.unSplashAccessKey}&page=${page}`)
     }
 
 
-    static getSearchRes = (search: string) => {
-        return httpGet(`https://api.unsplash.com/search/photos?query=${search}&client_id=${config.unSplashAccessKey}`)
+    static getSearchRes = (search: string,page=1) => {
+        return httpGet(`https://api.unsplash.com/search/photos?query=${search}&client_id=${config.unSplashAccessKey}&page=${page}`)
     }
 
     static getCategoryList = () => {

@@ -6,13 +6,13 @@ import { setHomeScreenScrollEvent } from "../redux/slice/commonSlice"
 import { AnimatedFlatlistScrollEvent } from "../types/globalTypes"
 
 const useHeaderAndFooterScrollAnimation = () => {
+
     const loopAnim = new Animated.Value(0)
     const scrollOffset = new Animated.Value(0)
     const delay = 0.5
     const HEADER_HEIGHT = Constants.AppHeader.height
 
     const dispatch = useDispatch()
-
 
     useEffect(() => {
         Animated.loop(
@@ -23,7 +23,6 @@ const useHeaderAndFooterScrollAnimation = () => {
             useNativeDriver:false
         })).start()
     },[])
-
     
     const handleScroll = (e: AnimatedFlatlistScrollEvent) => {
         dispatch(setHomeScreenScrollEvent({y:e.nativeEvent.contentOffset.y, velocity: e.nativeEvent.velocity?.y}))
@@ -40,4 +39,4 @@ const useHeaderAndFooterScrollAnimation = () => {
     return {headerBg,scrollOffset,handleScroll}
 }
 
-export default useHeaderAndFooterScrollAnimation
+export default useHeaderAndFooterScrollAnimation;

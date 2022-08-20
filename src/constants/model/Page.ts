@@ -1,8 +1,10 @@
 export default class Page {
-    page = 0
-    totalRecords = 0
+    page : number = 1
+    totalRecords : number = 0
+    totalPages : number | undefined = undefined 
 
     setPage = (p : number) => this.page = p
     setTotalRecords = (r : number) => this.totalRecords = r
+    setTotalPages = (t : number) => this.totalPages = t
 
 }

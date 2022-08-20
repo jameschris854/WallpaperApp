@@ -31,9 +31,9 @@ export const commonSlice = createSlice({
     setHomeScreenScrollEvent:(state: CommonState,action: PayloadAction<{y: number, velocity:  number | undefined}>) => {
       state.homeScreenScrollEvent = action.payload
       console.log(state.homeScreenScrollEvent.y,action.payload.velocity,state.shouldShowBottomTabs)
-      if((action.payload.velocity <= 0.2 || state.homeScreenScrollEvent.y < 1 ) && !state.shouldShowBottomTabs){
+      if((action.payload.velocity <= 0 || state.homeScreenScrollEvent.y == 0 ) && !state.shouldShowBottomTabs){
         state.shouldShowBottomTabs = true
-      } else if( action.payload.velocity >= 0.2 && state.shouldShowBottomTabs) {
+      } else if( action.payload.velocity >= 0.8 && state.shouldShowBottomTabs) {
         state.shouldShowBottomTabs = false
       }
     },
