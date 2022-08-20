@@ -8,21 +8,28 @@
  * @format
  */
 
-import React from 'react';
+import React, { useEffect } from 'react';
 import {
   useColorScheme,
 } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
 import BottomTabNavigator from './src/Navigators/BottomTabNavigator';
+import { useDispatch } from 'react-redux';
+import { setDarkMode } from './src/redux/slice/commonSlice';
 
 const App = () => {
-  const isDarkMode = useColorScheme() === 'dark';
+  const dispatch = useDispatch()
+  const appTheme = useColorScheme()
+  
+  useEffect(() => {
+    dispatch(setDarkMode(appTheme ? appTheme === 'dark' : false))
+  },[])
 
   return (
-    <NavigationContainer>
-      <BottomTabNavigator />
-    </NavigationContainer>
+      <NavigationContainer>
+        <BottomTabNavigator />
+      </NavigationContainer>
   );
 };
 

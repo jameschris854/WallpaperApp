@@ -2,11 +2,26 @@ import config from "../Config/config"
 
 
 const httpGet = async (url: RequestInfo) => {
-    return fetch(url)
+    const blob = await fetch(url)
+    return await blob.json()
 }
 
-const getWallPapers = () => {
-    return httpGet(`https://api.unsplash.com/search/photos?query=car&client_id=${config.unSplashAccessKey}`)
+class Sync {
+
+    static getWallPapers = () => {
+        return httpGet(`https://api.unsplash.com/search/photos?query=wallpapers&client_id=${config.unSplashAccessKey}`)
+    }
+
+
+    static getSearchRes = (search: string) => {
+        return httpGet(`https://api.unsplash.com/search/photos?query=${search}&client_id=${config.unSplashAccessKey}`)
+    }
+
+    static getCategoryList = () => {
+        return httpGet(`https://api.unsplash.com/topics?client_id=${config.unSplashAccessKey}`)
+    }
+
 }
 
-export {getWallPapers}
+
+export default Sync
