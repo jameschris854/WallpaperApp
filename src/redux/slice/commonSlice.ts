@@ -1,10 +1,10 @@
-import { FlatList } from 'react-native';
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import Colors from '../../constants/colors'
-import { AnimatedFlatlistScrollEvent } from '../../types/globalTypes';
 
 export interface CommonState {
+  isAppLoaded:boolean
+  isSplashAnimationComplete:boolean
   colors: typeof Colors.Theme
   homeScreenScrollEvent: {y: number, velocity: number | undefined}
   shouldShowBottomTabs: boolean
@@ -13,6 +13,8 @@ export interface CommonState {
 }
 
 const initialState: CommonState = {
+  isAppLoaded:false,
+  isSplashAnimationComplete:false,
   colors: Colors.Theme,
   homeScreenScrollEvent:  {y: 0, velocity: 0},
   shouldShowBottomTabs: true,
@@ -24,6 +26,12 @@ export const commonSlice = createSlice({
   name: 'common',
   initialState,
   reducers: {
+    setAppLoaded:(state : CommonState,action: PayloadAction<void>) => {
+      state.isAppLoaded = true
+    },
+    setSplashAnimationComplete:(state : CommonState,action: PayloadAction<void>) => {
+      state.isSplashAnimationComplete = true
+    },
     setDarkMode: (state : CommonState,action: PayloadAction<boolean>) => {
       Colors.updateAppTheme(action.payload)
       state.colors = Colors.getAppTheme()
@@ -49,6 +57,6 @@ export const commonSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setDarkMode ,setHomeScreenScrollEvent ,setDetails ,setDetailsState } = commonSlice.actions
+export const { setDarkMode ,setHomeScreenScrollEvent ,setDetails ,setDetailsState ,setSplashAnimationComplete ,setAppLoaded} = commonSlice.actions
 
 export default commonSlice.reducer

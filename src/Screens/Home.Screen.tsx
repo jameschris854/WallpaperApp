@@ -6,7 +6,7 @@ import Constants from "../constants/constants";
 import LogoSvg from "../Assets/Svg/LogoSvg";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../redux/store/store";
-import { setDarkMode } from "../redux/slice/commonSlice";
+import { setAppLoaded, setDarkMode } from "../redux/slice/commonSlice";
 import colors from "../constants/colors";
 import ThemeSvg from "../Assets/Svg/ThemeSvg";
 import Sync from "../Apis/sync";
@@ -28,6 +28,7 @@ const Home = () => {
    
     useEffect(() => {
         Sync.getWallPapers().then((res) => {
+                dispatch(setAppLoaded())
                 return setWallpapers(res.results);
         }).catch((e) => console.log(e))
     },[])
