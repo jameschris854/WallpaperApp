@@ -11,6 +11,11 @@ import { SearchScreen } from "../Screens/Search";
 
 export default class Constants {
 
+    static BottomTabStates = {
+        SHOW: 'SHOW',
+        HIDE: 'HIDE'
+    }
+
     static BottomTabs = [
         {
             title:"Search",

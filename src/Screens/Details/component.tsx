@@ -4,9 +4,10 @@ import { useDispatch, useSelector } from "react-redux";
 import GradientBackground from "../../components/GradientBackground";
 import { RootState } from "../../redux/store/store";
 import WallpaperManager, {TYPE} from "react-native-wallpaper-manage";
-import { setDetailsState } from "../../redux/slice/commonSlice";
+import { scrollControlInit, setDetailsState } from "../../redux/slice/commonSlice";
 import DownloadSvg from "../../Assets/Svg/DownloadSvg";
 import FavSvg from "../../Assets/Svg/FavSvg";
+import Constants from "../../constants/constants";
 
 const Component = () => {
 
@@ -34,6 +35,8 @@ const Component = () => {
     }
 
     useEffect(() => {
+    dispatch(scrollControlInit({bottomTabState:Constants.BottomTabStates.HIDE}))
+
       if(commonReducer.detailsState){
           Animated.timing(animVal,{
             toValue:1,
@@ -51,7 +54,6 @@ const Component = () => {
 
           dispatch(setDetailsState(false))
 
-          return true
       })
 
       return(() => _unsubscribe.remove())
@@ -61,7 +63,6 @@ const Component = () => {
 
     return(
         <>  
-        <Animated.View pointerEvents={commonReducer.detailsState ? "auto" : "none"} style={{position:'absolute',width:'100%',height:'100%',transform:[{scale:animVal.interpolate({inputRange:[0,1],outputRange:[0,1]})}]}}>
             <GradientBackground fromColor={Colors.backgroundColorDark} toColor={Colors.backgroundColorLight}>
                 <TouchableOpacity activeOpacity={1} onPress={() => setShowOptions(!showOptions)}>
                     <ActivityIndicator style={{position:'absolute',justifyContent:'center',alignItems:'center',height:'100%',width:'100%'}} size={"large"} />
@@ -79,7 +80,6 @@ const Component = () => {
                     </View>
                 </TouchableOpacity>
             </GradientBackground>
-        </Animated.View>
         </>
     )
 }

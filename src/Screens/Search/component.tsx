@@ -16,6 +16,7 @@ import useHeaderAndFooterScrollAnimation from "../../hooks/useHeaderAndFooterScr
 import BaseImageList from "../../components/BaseImageList";
 import Page from "../../constants/model/Page";
 import { scrollControlInit } from "../../redux/slice/commonSlice";
+import Constants from "../../constants/constants";
 const {height,width} = useDimensions('window')
 const HEADER_HEIGHT = 116
 
@@ -37,7 +38,7 @@ const Component = () => {
         }).start()
 
         const unsubscribe = navigation.addListener("focus", async (e) => {
-            dispatch(scrollControlInit())
+            dispatch(scrollControlInit({bottomTabState:Constants.BottomTabStates.SHOW}))
             resetAnimatedVal()
             dispatch(init())
         })

@@ -1,3 +1,4 @@
+import { useNavigation } from "@react-navigation/native";
 import React from "react";
 import { TouchableHighlight } from "react-native";
 import { useDispatch } from "react-redux";
@@ -10,9 +11,13 @@ type Props = {
 const ImageCardWrapper = ({children,item}:Props) => {
 
     const dispatch = useDispatch()
+    const navigation = useNavigation()
 
     return (
-        <TouchableHighlight onPress={() =>{ dispatch(setDetails(item)),dispatch(setDetailsState(true))}}>
+        <TouchableHighlight onPress={() =>{
+            dispatch(setDetails(item))
+            navigation.navigate({name:'Details'})
+        }}>
             {children}
         </TouchableHighlight>
     )

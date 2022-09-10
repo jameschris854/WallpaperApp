@@ -14,7 +14,7 @@ import {
 } from 'react-native';
 
 import { NavigationContainer } from '@react-navigation/native';
-import BottomTabNavigator from './src/Navigators/BottomTabNavigator';
+import BottomTabNavigator from './src/Navigators/Tab/BottomTabNavigator';
 import { useDispatch } from 'react-redux';
 import { setDarkMode } from './src/redux/slice/commonSlice';
 

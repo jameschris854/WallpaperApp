@@ -1,6 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
 import Colors from '../../constants/colors'
+import Constants from '../../constants/constants'
 
 export interface CommonState {
   isAppLoaded:boolean
@@ -43,8 +44,8 @@ export const commonSlice = createSlice({
         state.shouldShowBottomTabs = false
       }
     },
-    scrollControlInit:(state:CommonState,action:PayloadAction<void>) => {
-      state.shouldShowBottomTabs = true;
+    scrollControlInit:(state:CommonState,action:PayloadAction<{bottomTabState:string}>) => {
+      state.shouldShowBottomTabs = action.payload.bottomTabState == Constants.BottomTabStates.SHOW;
       state.homeScreenScrollEvent = {y: 0, velocity: 0};
     },
     setDetails:(state: CommonState,action: PayloadAction<any>) => {
