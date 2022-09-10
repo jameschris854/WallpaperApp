@@ -1,35 +1,36 @@
 import React, { useEffect, useState } from "react";
-import { Animated, Image, Text, TouchableOpacity, View } from "react-native";
+import { Animated, Text, TouchableOpacity, View } from "react-native";
 import useDimensions from "../hooks/useDimensions";
-import * as Animatable from 'react-native-animatable';
 import Constants from "../constants/constants";
 import LogoSvg from "../Assets/Svg/LogoSvg";
-import { useDispatch, useSelector } from "react-redux";
-import { RootState } from "../redux/store/store";
-import { setAppLoaded, setDarkMode } from "../redux/slice/commonSlice";
+import { useDispatch } from "react-redux";
+import { setAppLoaded, setDarkMode, setDetails } from "../redux/slice/commonSlice";
 import colors from "../constants/colors";
 import ThemeSvg from "../Assets/Svg/ThemeSvg";
 import Sync from "../Apis/sync";
 import withGradientBg from "../components/withGradientBg";
-import ImageCardWrapper from "../components/ImageCardWrapper";
 import useHeaderAndFooterScrollAnimation from "../hooks/useHeaderAndFooterScrollAnimation";
 import BaseImageList from "../components/BaseImageList";
 import Page from "../constants/model/Page";
 
 
 const Home = () => {
-    const Colors : typeof colors.Theme = useSelector((state: RootState) => state.commonReducer.colors)
     const dispatch = useDispatch()
     const HEADER_HEIGHT = Constants.AppHeader.height
     const [wallpapers,setWallpapers] = useState([])
     const {width} = useDimensions('window')
     const { headerBg,scrollOffset,handleScroll} = useHeaderAndFooterScrollAnimation()
     const [lastAnimatedIndex,setLastAnimatedIndex] = useState(0)
-   
+
+    const updateWallpapers = (data) => {
+        dispatch(setDetails(data))
+        setWallpapers(data)
+    }
+
     useEffect(() => {
         Sync.getWallPapers().then((res) => {
                 dispatch(setAppLoaded())
-                return setWallpapers(res.results);
+                return updateWallpapers(res.results);
         }).catch((e) => console.log(e))
     },[])
 
@@ -42,8 +43,8 @@ const Home = () => {
             const res = await Sync.getWallPapers(page.page)
             page.setTotalPages(res.total_pages)
             page.setTotalRecords(res.total)
-            
-            setWallpapers([...wallpapers,...res.results])
+
+            updateWallpapers([...wallpapers,...res.results])
             setLastAnimatedIndex(wallpapers.length-1)
         }catch(e){
             console.log('homne api wallL: ', e)

@@ -9,7 +9,7 @@ export interface CommonState {
   colors: typeof Colors.Theme
   homeScreenScrollEvent: {y: number, velocity: number | undefined}
   shouldShowBottomTabs: boolean
-  details: {}
+  details: []
   detailsState: boolean
 }
 
@@ -19,7 +19,7 @@ const initialState: CommonState = {
   colors: Colors.Theme,
   homeScreenScrollEvent:  {y: 0, velocity: 0},
   shouldShowBottomTabs: true,
-  details: {},
+  details: [],
   detailsState:false
 }
 
