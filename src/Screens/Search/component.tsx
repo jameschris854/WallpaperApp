@@ -15,6 +15,7 @@ import colors from "../../constants/colors";
 import useHeaderAndFooterScrollAnimation from "../../hooks/useHeaderAndFooterScrollAnimation";
 import BaseImageList from "../../components/BaseImageList";
 import Page from "../../constants/model/Page";
+import { scrollControlInit } from "../../redux/slice/commonSlice";
 const {height,width} = useDimensions('window')
 const HEADER_HEIGHT = 116
 
@@ -24,7 +25,7 @@ const Component = () => {
     const dispatch = useDispatch()
     const navigation = useNavigation()
     const [animVal] = useState(new Animated.Value(0))
-    const { headerBg,scrollOffset,handleScroll} = useHeaderAndFooterScrollAnimation()
+    const { headerBg,scrollOffset,handleScroll,resetAnimatedVal} = useHeaderAndFooterScrollAnimation()
 
     useEffect(() => {
         Animated.loop(Animated.timing(animVal,{
@@ -36,6 +37,8 @@ const Component = () => {
         }).start()
 
         const unsubscribe = navigation.addListener("focus", async (e) => {
+            dispatch(scrollControlInit())
+            resetAnimatedVal()
             dispatch(init())
         })
 
@@ -64,6 +67,7 @@ const Component = () => {
 
             dispatch(setSearchResults({
                 results:[...Search.searchResults,...res.results],
+                lastAnimatedIndex:Search.searchResults.length-1,
                 total:res.total,
                 total_pages:res.total_pages
             }))
@@ -108,6 +112,7 @@ const Component = () => {
             handleScroll={handleScroll}
             pageHeaderHeight={HEADER_HEIGHT}
             handlePageEndReached={handlePageEndReached}
+            lastAnimatedIndex={Search.lastAnimatedIndex}
             />
         </View>
         </>

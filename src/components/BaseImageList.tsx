@@ -10,20 +10,16 @@ import colors from "../constants/colors";
 import { RootState } from "../redux/store/store";
 import Page from "../constants/model/Page";
 
-const BaseImageList = ({data,handleScroll,pageHeaderHeight,handlePageEndReached}) => {
+const BaseImageList = ({data,handleScroll,pageHeaderHeight,handlePageEndReached,lastAnimatedIndex=0}) => {
     const {height} = useDimensions('window')
     const Colors : typeof colors.Theme = useSelector((state: RootState) => state.commonReducer.colors)
     const [page] = useState(new Page())
 
     const _renderItem = ({item,index}) => {
-
-        useEffect(() => {
-            console.log('mounted',index)
-        },[])
-
-        return  <Animatable.View key={index} iterationDelay={125*index} duration={250} useNativeDriver easing={"ease-in-out"}  style={{maxHeight:height/3,width:'47.5%',marginLeft:index%2 !== 0 ? 'auto': '0%',marginTop:'4%',backgroundColor:Colors.cardBg,borderRadius:15,overflow:'hidden'}}>
+        if(!item?.urls?.small) return
+        return  <Animatable.View key={index} animation={lastAnimatedIndex < index ? "bounceInUp" : ""} iterationDelay={(index - lastAnimatedIndex)*130} duration={250} useNativeDriver easing={"ease-in-out"}  style={{maxHeight:height/3,width:'47.5%',marginLeft:index%2 !== 0 ? 'auto': '0%',marginTop:'4%',backgroundColor:Colors.cardBg,borderRadius:15,overflow:'hidden'}}>
                     <ImageCardWrapper item={item}>
-                        <Image source={{uri:item.urls.small}} style={{width:'100%',height:'100%'}} resizeMode={"cover"} />
+                        <Image source={{uri:item.urls.small}} style={{width:'100%',height:'100%',backgroundColor:Colors.cardBg}} resizeMode={"cover"} />
                     </ImageCardWrapper>
                 </Animatable.View>
     }
@@ -31,7 +27,7 @@ const BaseImageList = ({data,handleScroll,pageHeaderHeight,handlePageEndReached}
     const onEndReached = (e) => {
         handlePageEndReached(e,page)
     }
-
+    
     return(
         <>
             {

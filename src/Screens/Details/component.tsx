@@ -34,7 +34,6 @@ const Component = () => {
     }
 
     useEffect(() => {
-        console.log('effect, '+ commonReducer.detailsState)
       if(commonReducer.detailsState){
           Animated.timing(animVal,{
             toValue:1,

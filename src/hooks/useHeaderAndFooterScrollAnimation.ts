@@ -36,7 +36,12 @@ const useHeaderAndFooterScrollAnimation = () => {
         outputRange:['rgba(0, 0, 0, 0.1)','rgba(0, 0, 0, 0)'],
     })
 
-    return {headerBg,scrollOffset,handleScroll}
+    const resetAnimatedVal = () => {
+        scrollOffset.setValue(0)
+        loopAnim.setValue(0)
+    }
+
+    return {headerBg,scrollOffset,handleScroll,resetAnimatedVal}
 }
 
 export default useHeaderAndFooterScrollAnimation;

@@ -37,13 +37,15 @@ export const commonSlice = createSlice({
       state.colors = Colors.getAppTheme()
     },
     setHomeScreenScrollEvent:(state: CommonState,action: PayloadAction<{y: number, velocity:  number | undefined}>) => {
-      state.homeScreenScrollEvent = action.payload
-      console.log(state.homeScreenScrollEvent.y,action.payload.velocity,state.shouldShowBottomTabs)
-      if((action.payload.velocity <= 0 || state.homeScreenScrollEvent.y == 0 ) && !state.shouldShowBottomTabs){
+      if((action.payload.velocity <= 0 || action.payload.y == 0 ) && !state.shouldShowBottomTabs){
         state.shouldShowBottomTabs = true
       } else if( action.payload.velocity >= 0.8 && state.shouldShowBottomTabs) {
         state.shouldShowBottomTabs = false
       }
+    },
+    scrollControlInit:(state:CommonState,action:PayloadAction<void>) => {
+      state.shouldShowBottomTabs = true;
+      state.homeScreenScrollEvent = {y: 0, velocity: 0};
     },
     setDetails:(state: CommonState,action: PayloadAction<any>) => {
       console.log('setdet')
@@ -57,6 +59,6 @@ export const commonSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setDarkMode ,setHomeScreenScrollEvent ,setDetails ,setDetailsState ,setSplashAnimationComplete ,setAppLoaded} = commonSlice.actions
+export const { setDarkMode ,setHomeScreenScrollEvent ,setDetails ,setDetailsState ,setSplashAnimationComplete ,setAppLoaded,scrollControlInit} = commonSlice.actions
 
 export default commonSlice.reducer

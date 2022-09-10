@@ -22,9 +22,9 @@ const Home = () => {
     const dispatch = useDispatch()
     const HEADER_HEIGHT = Constants.AppHeader.height
     const [wallpapers,setWallpapers] = useState([])
-    const {height,width} = useDimensions('window')
+    const {width} = useDimensions('window')
     const { headerBg,scrollOffset,handleScroll} = useHeaderAndFooterScrollAnimation()
-
+    const [lastAnimatedIndex,setLastAnimatedIndex] = useState(0)
    
     useEffect(() => {
         Sync.getWallPapers().then((res) => {
@@ -42,8 +42,9 @@ const Home = () => {
             const res = await Sync.getWallPapers(page.page)
             page.setTotalPages(res.total_pages)
             page.setTotalRecords(res.total)
-
+            
             setWallpapers([...wallpapers,...res.results])
+            setLastAnimatedIndex(wallpapers.length-1)
         }catch(e){
             console.log('homne api wallL: ', e)
         }
@@ -67,6 +68,7 @@ const Home = () => {
             handleScroll={handleScroll}
             pageHeaderHeight={HEADER_HEIGHT}
             handlePageEndReached={getWallPapers}
+            lastAnimatedIndex={lastAnimatedIndex}
             />
             </Animated.View>
         </>

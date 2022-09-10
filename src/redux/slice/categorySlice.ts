@@ -1,16 +1,20 @@
 import { createSlice } from '@reduxjs/toolkit'
 import type { PayloadAction } from '@reduxjs/toolkit'
+import { WallpaperListRes } from '../../types/globalTypes'
 
 export interface CommonState {
     categoryResults: Array<any>
     totalRecords: number
-    selectedCategory: Array<any>
+    selectedCategoryResults: Array<any>
+    totalPages: number
+    lastAnimatedIndex: number
 }
 
 const initialState: CommonState = {
     categoryResults: [],
+    selectedCategoryResults:[],
     totalRecords: 0,
-    selectedCategory:[]
+    totalPages: 0,
 }
 
 export const slice = createSlice({
@@ -23,12 +27,17 @@ export const slice = createSlice({
     },
     setcategoryResults:(state : CommonState,action: PayloadAction<Array<any>>) => {
         state.categoryResults = action.payload
-        state.totalRecords = action.payload.length
+    },
+    setSelectedCategoryItems:(state:CommonState,action:PayloadAction<WallpaperListRes>) => {
+      state.selectedCategoryResults = action.payload.results
+      state.totalRecords = action.payload.total
+      state.totalPages = action.payload.total_pages
+      state.lastAnimatedIndex = action.payload.lastAnimatedIndex
     }
   },
 })
 
 // Action creators are generated for each case reducer function
-export const { init , setcategoryResults} = slice.actions
+export const { init , setcategoryResults ,setSelectedCategoryItems} = slice.actions
 
 export default slice.reducer

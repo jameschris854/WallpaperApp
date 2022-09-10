@@ -21,6 +21,10 @@ class Sync {
         return httpGet(`https://api.unsplash.com/topics?client_id=${config.unSplashAccessKey}`)
     }
 
+    static getByCatName = (cat) => {
+        return httpGet(`https://api.unsplash.com/search/photos?query=wallpapers&client_id=${config.unSplashAccessKey}&page=${1}`)
+    }
+
 }
 
 
