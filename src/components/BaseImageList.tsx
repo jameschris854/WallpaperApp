@@ -18,7 +18,7 @@ const BaseImageList = ({data,handleScroll,pageHeaderHeight,handlePageEndReached,
     const _renderItem = ({item,index}) => {
         if(!item?.urls?.small) return
         return  <Animatable.View key={index} animation={lastAnimatedIndex < index ? "bounceInUp" : ""} iterationDelay={(index - lastAnimatedIndex)*130} duration={250} useNativeDriver easing={"ease-in-out"}  style={{maxHeight:height/3,width:'47.5%',marginLeft:index%2 !== 0 ? 'auto': '0%',marginTop:'4%',backgroundColor:Colors.cardBg,borderRadius:15,overflow:'hidden'}}>
-                    <ImageCardWrapper item={item}>
+                    <ImageCardWrapper item={item} index={index}>
                         <Image source={{uri:item.urls.small}} style={{width:'100%',height:'100%',backgroundColor:Colors.cardBg}} resizeMode={"cover"} />
                     </ImageCardWrapper>
                 </Animatable.View>

@@ -27,6 +27,7 @@ const Component = () => {
                 snapToAlignment={"start"}
                 snapToInterval={height}
                 decelerationRate={"normal"}
+                initialScrollIndex={commonReducer.detailIndex}
                 />}
             </GradientBackground>
         </>

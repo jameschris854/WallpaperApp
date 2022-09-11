@@ -9,7 +9,8 @@ export interface CommonState {
   colors: typeof Colors.Theme
   homeScreenScrollEvent: {y: number, velocity: number | undefined}
   shouldShowBottomTabs: boolean
-  details: []
+  details: [],
+  detailIndex: number,
   detailsState: boolean
 }
 
@@ -20,6 +21,7 @@ const initialState: CommonState = {
   homeScreenScrollEvent:  {y: 0, velocity: 0},
   shouldShowBottomTabs: true,
   details: [],
+  detailIndex: 0,
   detailsState:false
 }
 
@@ -49,9 +51,11 @@ export const commonSlice = createSlice({
       state.homeScreenScrollEvent = {y: 0, velocity: 0};
     },
     setDetails:(state: CommonState,action: PayloadAction<any>) => {
-      console.log('setdet')
       commonSlice.actions.setDetailsState(true)
       state.details = action.payload
+    },
+    setDetailIndex:(state: CommonState,action: PayloadAction<number>) => {
+      state.detailIndex = action.payload
     },
     setDetailsState:(state: CommonState,action: PayloadAction<boolean>) => {
       state.detailsState = action.payload
@@ -60,6 +64,6 @@ export const commonSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { setDarkMode ,setHomeScreenScrollEvent ,setDetails ,setDetailsState ,setSplashAnimationComplete ,setAppLoaded,scrollControlInit} = commonSlice.actions
+export const { setDarkMode ,setHomeScreenScrollEvent ,setDetails ,setDetailsState ,setSplashAnimationComplete ,setAppLoaded,scrollControlInit,setDetailIndex} = commonSlice.actions
 
 export default commonSlice.reducer
