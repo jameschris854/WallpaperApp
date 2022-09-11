@@ -123,7 +123,7 @@ const DetailCard = ({item}) => {
           <DownloadSvg height={20} width={20} color="#fff" />
         </TouchableOpacity>
         <TouchableOpacity onPress={() => share()}>
-          <FavSvg color={'#fff'} height={61} width={71} />
+          <FavSvg color={'#fff'} height={20} width={20} />
         </TouchableOpacity>
       </Animated.View>
       <ProgressiveImage
