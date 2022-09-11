@@ -26,8 +26,9 @@ const Component = () => {
                 renderItem={({item}) => <DetailCard item={item} />}
                 snapToAlignment={"start"}
                 snapToInterval={height}
-                decelerationRate={"normal"}
+                decelerationRate={0.7}
                 initialScrollIndex={commonReducer.detailIndex}
+                scrollEventThrottle={16}
                 />}
             </GradientBackground>
         </>

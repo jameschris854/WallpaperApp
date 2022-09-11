@@ -1,5 +1,5 @@
-import React, {useEffect, useState} from 'react';
-import {Animated, Image, Text, ToastAndroid, TouchableOpacity, View} from 'react-native';
+import React, {useState} from 'react';
+import {Animated, ToastAndroid, TouchableOpacity, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import DownloadSvg from '../../Assets/Svg/DownloadSvg';
@@ -10,6 +10,7 @@ import ProgressiveImage from '../../components/ProgressiveImage';
 import ApplyWallpaperSvg from '../../Assets/Svg/ApplyWallpaperSvg';
 import Svg, {Path, Defs, LinearGradient, Stop} from 'react-native-svg';
 import Lottie from 'lottie-react-native';
+import Share from 'react-native-share';
 
 const DetailCard = ({item}) => {
   const {height, width} = useDimensions('window');
@@ -43,10 +44,21 @@ const DetailCard = ({item}) => {
     }
   };
 
-  const downloadImage = () => {};
+  const downloadImage = () => {
+    Share.open({
+        message:'Hey ,Im using wally.checkout this amazing wallpaper!',
+        url: item.links.download
+    })
+    .then((res) => {
+      console.log(res);
+    })
+    .catch((err) => {
+      err && console.log(err);
+    });
+  };
 
-  const share = () => {
-
+  const addToFavourite = () => {
+   
   };
 
   const bottom = showOptions
@@ -116,13 +128,13 @@ const DetailCard = ({item}) => {
           paddingHorizontal: 16,
           alignItems: 'center',
         }}>
-        <TouchableOpacity onPress={() => setAsWallpaper()} style={{width: 70}}>
+        <TouchableOpacity onPress={() => setAsWallpaper()} style={{flex:1,justifyContent:'center',alignItems:'center'}}>
           <ApplyWallpaperSvg />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => downloadImage()} style={{}}>
-          <DownloadSvg height={20} width={20} color="#fff" />
+        <TouchableOpacity onPress={() => downloadImage()} style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+          <DownloadSvg height={24} width={24} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => share()}>
+        <TouchableOpacity onPress={() => addToFavourite()} style={{flex:1,justifyContent:'center',alignItems:'center'}}>
           <FavSvg color={'#fff'} height={20} width={20} />
         </TouchableOpacity>
       </Animated.View>

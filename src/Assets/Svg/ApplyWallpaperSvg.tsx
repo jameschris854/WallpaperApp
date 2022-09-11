@@ -7,7 +7,7 @@ function ApplyWallpaperSvg(props) {
       xmlns="http://www.w3.org/2000/svg"
       width={50}
       height={34}
-      viewBox="0 0 90 34"
+      viewBox="0 0 120 34"
       fill="none"
       {...props}
     >
