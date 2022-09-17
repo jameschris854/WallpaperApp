@@ -34,15 +34,15 @@ export default class Constants {
             color:'#2ac1c8',
             showHeader: false
         },
-        {
-            title:"Favourites",
-            Icon: FavSvg,
-            value:"favourite",
-            index:2,
-            component:FavouritesScreen,
-            color:'#ff4141',
-            showHeader: false
-        },
+        // {
+        //     title:"Favourites",
+        //     Icon: FavSvg,
+        //     value:"favourite",
+        //     index:2,
+        //     component:FavouritesScreen,
+        //     color:'#ff4141',
+        //     showHeader: false
+        // },
         {
             title:"Categories",
             Icon: CategorySvg,

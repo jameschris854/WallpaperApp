@@ -17,6 +17,8 @@ import {setcategoryResults} from '../../redux/slice/categorySlice';
 import GradientBackground from '../../components/GradientBackground';
 import useHeaderAndFooterScrollAnimation from '../../hooks/useHeaderAndFooterScrollAnimation';
 import { useNavigation } from '@react-navigation/native';
+import Lottie from 'lottie-react-native'
+
 const {height, width} = useDimensions('window');
 const HEADER_HEIGHT = 50;
 
@@ -133,14 +135,10 @@ const Component = () => {
                 ListFooterComponent={<View style={{height: 16, width: '100%'}} />}
               />
             ) : (
-              <View
-                style={{flex: 1, justifyContent: 'center', alignItems: 'center'}}>
-                <SearchIllSvg
-                  size={200}
-                  style={{transform: [{scale: 0.5}]}}
-                  Colors={Colors}
-                />
-              </View>
+             
+                <View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+                    <Lottie style={{width:150,height:150}} colorFilters={[{keypath:"Top 2",color:Colors.backgroundColorLight},{keypath:"Bottom 2",color:Colors.backgroundColorLight},{keypath:"Arch 2",color:Colors.backgroundColorLight},{keypath:"Circle 3",color:Colors.backgroundColorLight}]} source={require('../../Assets/Lottie/91518-blue-abstract-loader (1).json')} autoPlay loop />
+                </View> 
             )}
           </View>
         </View>
