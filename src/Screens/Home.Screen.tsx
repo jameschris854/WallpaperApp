@@ -12,6 +12,7 @@ import withGradientBg from "../components/withGradientBg";
 import useHeaderAndFooterScrollAnimation from "../hooks/useHeaderAndFooterScrollAnimation";
 import BaseImageList from "../components/BaseImageList";
 import Page from "../constants/model/Page";
+import { useFocusEffect } from "@react-navigation/native";
 
 
 const Home = () => {
@@ -34,6 +35,10 @@ const Home = () => {
         }).catch((e) => console.log(e))
     },[])
 
+    // set details list every time on focus
+    useFocusEffect(() => {
+        dispatch(setDetails(wallpapers))
+    });
 
     const getWallPapers = async (e:Event,page:Page) => {
         if(page.totalPages && page.page >= page.totalPages) return
