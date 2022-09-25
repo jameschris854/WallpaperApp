@@ -8,7 +8,8 @@
     "start": "react-native start",
     "test": "jest",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
-    "android-release": "react-native run-android --variant=release"
+    "android-release": "react-native run-android --variant=release",
+    "rmdir": "node -e \"var fs = require('fs'); process.argv.slice(1).map((fpath) => fs.rmdirSync(fpath, { recursive: true })); process.exit(0);\""
   },
   "dependencies": {
     "@react-navigation/bottom-tabs": "^6.3.1",
