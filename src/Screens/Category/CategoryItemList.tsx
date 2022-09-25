@@ -13,10 +13,15 @@ import { setSelectedCategoryItems } from '../../redux/slice/categorySlice';
 import { setDetails } from '../../redux/slice/commonSlice';
 import {RootState} from '../../redux/store/store';
 import { WallpaperListRes } from '../../types/globalTypes';
+import Lottie from 'lottie-react-native'
+import colors from '../../constants/colors';
+
 const HEADER_HEIGHT = 50;
 
 const CategoryItemList = () => {
   const Category = useSelector((state: RootState) => state.categoryReducer);
+  const Colors : typeof colors.Theme = useSelector((state: RootState) => state.commonReducer.colors)
+
   const {height, width} = useDimensions('window');
   const {headerBg, scrollOffset, handleScroll} = useHeaderAndFooterScrollAnimation();
   const dispatch = useDispatch();
@@ -25,6 +30,7 @@ const CategoryItemList = () => {
 
   useEffect(() => {
     (async () => {
+        setResultsInStore({results:[],total:0,total_pages:0,lastAnimatedIndex:0})
         await getSelectedCatList()
     })();
   },[])
@@ -35,7 +41,6 @@ const CategoryItemList = () => {
 }
 
   const getSelectedCatList = async () => {
-    console.log('selectedCat',selectedCat.title)
     const res = await Sync.getByCatName(selectedCat.title)
     setResultsInStore(res)
   }
@@ -44,7 +49,7 @@ const CategoryItemList = () => {
     if (page.totalPages && page.page >= page.totalPages) return;
     try {
       page.setPage(page.page + 1);
-      const res = await Sync.getByCatName(selectedCat,page.page);
+      const res = await Sync.getByCatName(selectedCat.title,page.page);
       page.setTotalPages(Category.totalPages);
       page.setTotalRecords(Category.totalRecords);
 
@@ -91,7 +96,9 @@ const CategoryItemList = () => {
           handlePageEndReached={handlePageEndReached}
           lastAnimatedIndex={Category.lastAnimatedIndex}
         />
-      ) : null}
+      ) : <View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+            <Lottie style={{width:150,height:150}} colorFilters={[{keypath:"Top 2",color:Colors.backgroundColorLight},{keypath:"Bottom 2",color:Colors.backgroundColorLight},{keypath:"Arch 2",color:Colors.backgroundColorLight},{keypath:"Circle 3",color:Colors.backgroundColorLight}]} source={require('../../Assets/Lottie/91518-blue-abstract-loader (1).json')} autoPlay loop />
+          </View> }
     </View>
   );
 };

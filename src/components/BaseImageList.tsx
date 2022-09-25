@@ -1,6 +1,5 @@
-import React, { useEffect, useState } from "react"
+import React, { useState } from "react"
 import { Animated, Image, View } from "react-native"
-import { Colors } from "react-native/Libraries/NewAppScreen"
 import ImageCardWrapper from "./ImageCardWrapper"
 import * as Animatable from 'react-native-animatable';
 import useDimensions from "../hooks/useDimensions";
@@ -44,9 +43,9 @@ const BaseImageList = ({data,handleScroll,pageHeaderHeight,handlePageEndReached,
                 scrollEventThrottle={300}
                 style={{flex:1}}
                 ListHeaderComponent={<View style={{height:pageHeaderHeight,width:'100%'}} />}
-                ListFooterComponent={(page.totalPages && page.page < page.totalPages) ? <View style={{justifyContent:'center',alignItems:'center',flex:1}}>
+                ListFooterComponent={<View style={{justifyContent:'center',alignItems:'center',flex:1}}>
                 <Lottie style={{width:150,height:150}} colorFilters={[{keypath:"Top 2",color:Colors.backgroundColorLight},{keypath:"Bottom 2",color:Colors.backgroundColorLight},{keypath:"Arch 2",color:Colors.backgroundColorLight},{keypath:"Circle 3",color:Colors.backgroundColorLight}]} source={require('../Assets/Lottie/91518-blue-abstract-loader (1).json')} autoPlay loop />
-            </View> : <View style={{height:16,width:'100%'}} />}
+            </View> }
                 onEndReached={onEndReached}
                 />
 

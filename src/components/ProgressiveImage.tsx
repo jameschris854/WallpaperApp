@@ -8,7 +8,6 @@ const ProgressiveImage = ({lowResImage,HighResImage,...props}) => {
     const Colors = commonReducer.colors
     const highResImageStyle = props.style? {...props.style,zIndex:1,position:'absolute'} : {}
 
-    console.log(highResImageStyle)
     return(
         <>
             <View style={{justifyContent:'center',alignSelf:'center',height:'100%',width:'100%'}}>

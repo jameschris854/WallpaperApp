@@ -1,4 +1,4 @@
-package com.wall;
+package com.app.wally;
 
 import com.facebook.react.ReactActivity;
 import com.facebook.react.ReactActivityDelegate;

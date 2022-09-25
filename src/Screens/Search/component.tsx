@@ -40,9 +40,10 @@ const Component = () => {
         }).start()
 
         const unsubscribe = navigation.addListener("focus", async (e) => {
+            console.log('focus')
             dispatch(scrollControlInit({bottomTabState:Constants.BottomTabStates.SHOW}))
-            resetAnimatedVal()
             dispatch(init())
+            resetAnimatedVal()
         })
 
         return () => unsubscribe();

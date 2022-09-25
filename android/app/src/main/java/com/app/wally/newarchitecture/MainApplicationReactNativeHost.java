@@ -1,4 +1,4 @@
-package com.wall.newarchitecture;
+package com.app.wally.newarchitecture;
 
 import android.app.Application;
 import androidx.annotation.NonNull;
@@ -19,9 +19,9 @@ import com.facebook.react.fabric.CoreComponentsRegistry;
 import com.facebook.react.fabric.FabricJSIModuleProvider;
 import com.facebook.react.fabric.ReactNativeConfig;
 import com.facebook.react.uimanager.ViewManagerRegistry;
-import com.wall.BuildConfig;
-import com.wall.newarchitecture.components.MainComponentsRegistry;
-import com.wall.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
+import com.app.wally.BuildConfig;
+import com.app.wally.newarchitecture.components.MainComponentsRegistry;
+import com.app.wally.newarchitecture.modules.MainApplicationTurboModuleManagerDelegate;
 import java.util.ArrayList;
 import java.util.List;
 

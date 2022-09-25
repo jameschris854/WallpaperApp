@@ -23,8 +23,6 @@ const Splash = () => {
     });
   }, []);
 
-  console.log('spl',isSplashAnimationComplete,isAppLoaded)
-  console.log('ch',isSplashAnimationComplete === false && isAppLoaded === false)
   return (
     <>
         <View style={{height,width}}>

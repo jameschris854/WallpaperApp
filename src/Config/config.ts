@@ -10,7 +10,9 @@ const env = {
     VERSION_CODE:_config.VERSION_CODE,
     DEBUG:_config.DEBUG,
     BUILD_TYPE:_config.BUILD_TYPE,
-    APPLICATION_ID:_config.APPLICATION_ID
+    APPLICATION_ID:_config.APPLICATION_ID,
+    PIXEL_API_KEY:_config.PIXEL_API_KEY,
+    PIXBAY_KEY:_config.PIXBAY_KEY
 };
 
 export const config : typeof env = env;

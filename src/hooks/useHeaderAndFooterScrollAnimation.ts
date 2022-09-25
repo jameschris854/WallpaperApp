@@ -1,4 +1,4 @@
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import { Animated, Easing } from "react-native"
 import { useDispatch } from "react-redux"
 import Constants from "../constants/constants"
@@ -8,7 +8,7 @@ import { AnimatedFlatlistScrollEvent } from "../types/globalTypes"
 const useHeaderAndFooterScrollAnimation = () => {
 
     const loopAnim = new Animated.Value(0)
-    const scrollOffset = new Animated.Value(0)
+    const [scrollOffset] = useState(new Animated.Value(0))
     const delay = 0.5
     const HEADER_HEIGHT = Constants.AppHeader.height
 

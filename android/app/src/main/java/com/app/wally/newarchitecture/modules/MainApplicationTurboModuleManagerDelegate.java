@@ -1,4 +1,4 @@
-package com.wall.newarchitecture.modules;
+package com.app.wally.newarchitecture.modules;
 
 import com.facebook.jni.HybridData;
 import com.facebook.react.ReactPackage;

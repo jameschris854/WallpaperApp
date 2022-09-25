@@ -18,28 +18,15 @@ import GradientBackground from '../../components/GradientBackground';
 import useHeaderAndFooterScrollAnimation from '../../hooks/useHeaderAndFooterScrollAnimation';
 import { useNavigation } from '@react-navigation/native';
 import Lottie from 'lottie-react-native'
+import Constants from '../../constants/constants';
 
 const {height, width} = useDimensions('window');
 const HEADER_HEIGHT = 50;
 
 const Component = () => {
   const Colors = useSelector((state: RootState) => state.commonReducer.colors);
-  const Category = useSelector((state: RootState) => state.categoryReducer);
   const {headerBg, scrollOffset, handleScroll} = useHeaderAndFooterScrollAnimation();
-  const dispatch = useDispatch();
   const navigation = useNavigation();
-
-  useEffect(() => {
-    (async () => {
-      try {
-        const res = await Sync.getCategoryList();
-        dispatch(setcategoryResults(res));
-      } catch (e) {
-        console.error(e);
-      }
-    })();
-
-  }, []);
 
 
   const _renderItem = ({item, index}) => {
@@ -64,7 +51,7 @@ const Component = () => {
             navigation.navigate({name: 'CategoryItemList',params:{selectedCat:item}})
           }}>
           <Image
-            source={{uri: item.cover_photo.urls.small}}
+            source={{uri: item.cover_photo}}
             style={{width: '100%', height: '100%'}}
             resizeMode={'cover'}
           />
@@ -118,10 +105,10 @@ const Component = () => {
         <View style={{
            height: height,
         }}>
-            {Category.categoryResults.length ? (
+            {Constants.Categories.length ? (
               <Animated.FlatList
                 showsVerticalScrollIndicator={false}
-                data={Category.categoryResults}
+                data={Constants.Categories}
                 renderItem={props => <_renderItem {...props} />}
                 scrollEnabled
                 horizontal={false}

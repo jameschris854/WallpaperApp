@@ -3,7 +3,7 @@ import {Animated, ToastAndroid, TouchableOpacity, View} from 'react-native';
 import {TouchableWithoutFeedback} from 'react-native-gesture-handler';
 import {Colors} from 'react-native/Libraries/NewAppScreen';
 import DownloadSvg from '../../Assets/Svg/DownloadSvg';
-import FavSvg from '../../Assets/Svg/FavSvg';
+import FavSvg from '../../Assets/Svg/ShareSvg';
 import useDimensions from '../../hooks/useDimensions';
 import WallpaperManager from 'react-native-wallpaper-manage';
 import ProgressiveImage from '../../components/ProgressiveImage';
@@ -11,6 +11,8 @@ import ApplyWallpaperSvg from '../../Assets/Svg/ApplyWallpaperSvg';
 import Svg, {Path, Defs, LinearGradient, Stop} from 'react-native-svg';
 import Lottie from 'lottie-react-native';
 import Share from 'react-native-share';
+import ShareSvg from '../../Assets/Svg/ShareSvg';
+import DownloadUrl from '../../components/DownloadUrl';
 
 const DetailCard = ({item}) => {
   const {height, width} = useDimensions('window');
@@ -44,7 +46,7 @@ const DetailCard = ({item}) => {
     }
   };
 
-  const downloadImage = () => {
+  const ShareImage = () => {
     Share.open({
         message:'Hey ,Im using wally.checkout this amazing wallpaper!',
         url: item.links.download
@@ -57,7 +59,7 @@ const DetailCard = ({item}) => {
     });
   };
 
-  const addToFavourite = () => {
+  const downloadImage = () => {
    
   };
 
@@ -131,12 +133,12 @@ const DetailCard = ({item}) => {
         <TouchableOpacity onPress={() => setAsWallpaper()} style={{flex:1,justifyContent:'center',alignItems:'center'}}>
           <ApplyWallpaperSvg />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => downloadImage()} style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-          <DownloadSvg height={24} width={24} color="#fff" />
+        <TouchableOpacity onPress={() => ShareImage()} style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+          <ShareSvg height={24} width={24} color="#fff" />
         </TouchableOpacity>
-        <TouchableOpacity onPress={() => addToFavourite()} style={{flex:1,justifyContent:'center',alignItems:'center'}}>
-          <FavSvg color={'#fff'} height={20} width={20} />
-        </TouchableOpacity>
+        {/* <TouchableOpacity onPress={() => downloadImage()} style={{flex:1,justifyContent:'center',alignItems:'center'}}>
+          <DownloadSvg color={'#fff'} height={20} width={20} />
+        </TouchableOpacity> */}
       </Animated.View>
       <ProgressiveImage
         HighResImage={item.urls.raw}
